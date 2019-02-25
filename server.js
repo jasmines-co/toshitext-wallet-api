@@ -76,7 +76,6 @@ app.get('/results', (req, res) => {
     rp(url)
     .then(body => {
         const data = JSON.parse(body)
-        res.send(`name is ${data.name} and hash ${data.hash}`)
         res.json(data)
     })
     .catch(err => {
