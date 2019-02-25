@@ -20,7 +20,7 @@ app.post('/wallets', (req, res) => {
                     "addresses": ["1J6VVu3b3NYT89na7XqCoCn5ryEUmNxWF5"]}
             },
             json: true // Automatically stringifies the body to JSON
-        };
+        }
         rp(options)
         .then(results => {
             console.log(results)
@@ -29,9 +29,25 @@ app.post('/wallets', (req, res) => {
         .catch(err => {
             console.log('Error -> ', err)
         })
-    })
+})
 
-    app.get('/wallets', (req, res) => {
+app.post('/addressGeneration', (req, res) => {
+    const url = 'http://api.blockcypher.com/v1/btc/test3/addrs'
+    var options = {
+        method: 'POST',
+        uri: url
+    }
+    rp(options)
+    .then(results => {
+        console.log(results)
+        res.send(results)
+    })
+    .catch(err => {
+        console.log('Error -> ', err)
+    })
+})
+
+    app.get('/addressDetails', (req, res) => {
         const url = `https://api.blockcypher.com/v1/btc/main/wallets`
         var options = {
             uri: url,
