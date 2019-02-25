@@ -4,7 +4,7 @@ const app = express()
 const rp = require('request-promise')
 const bitcoin = require('bitcoinjs-lib')
 tx = new bitcoin.Transaction()
-const port = 5000 || process.env.PORT
+const port = process.env.PORT || 5000
 
 app.get('/', (req, res) => {
     res.send('Toshitext Wallet Managet NodeJS')
