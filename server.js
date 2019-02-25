@@ -1,12 +1,60 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const rp = require('request-promise')
-const port = 3000
-app.set('view engine', 'ejs')
+const querystring = require('querystring')
+const port = 3000 || process.env.PORT
 
 app.get('/', (req, res) => {
-    res.render('search')
+    res.send('Toshitext Wallet Managet NodeJS')
 })
+
+app.post('/wallets', (req, res) => {
+        const url = `https://api.blockcypher.com/v1/btc/main/wallets?token=${process.env.TOKEN}`
+        var options = {
+            method: 'POST',
+            uri: url,
+            body: {
+                some: {
+                    "name": "fode",
+                    "addresses": ["1J6VVu3b3NYT89na7XqCoCn5ryEUmNxWF5"]}
+            },
+            json: true // Automatically stringifies the body to JSON
+        };
+        rp(options)
+        .then(results => {
+            console.log(results)
+            res.send(results)
+        })
+        .catch(err => {
+            console.log('Error -> ', err)
+        })
+    })
+
+    app.get('/wallets', (req, res) => {
+        const url = `https://api.blockcypher.com/v1/btc/main/wallets`
+        var options = {
+            uri: url,
+            qs: {
+                token: process.env.TOKEN // -> uri + '?access_token=xxxxx%20xxxxx'
+            },
+            headers: {
+                'User-Agent': 'Request-Promise'
+            },
+            json: true // Automatically parses the JSON string in the response
+        };
+        
+        rp(options)
+        .then(results => {
+            console.log(results)
+            res.send(results)
+        })
+        .catch(err => {
+            console.log('Error -> ', err)
+        })
+    })
+    
+    
 
 app.get('/results', (req, res) => {
 //  res.send('It works!')

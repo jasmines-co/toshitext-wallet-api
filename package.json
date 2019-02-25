@@ -2,7 +2,7 @@
   "name": "wallet-manager",
   "version": "1.0.0",
   "description": "Node Crypto Wallet Manager",
-  "main": "touch app.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,12 +14,15 @@
   "author": "Fodé Diop",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^6.2.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "querystring": "^0.2.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
   },
   "devDependencies": {
-    "locus": "^2.0.1"
+    "locus": "^2.0.1",
+    "nodemon": "^1.18.10"
   }
 }
