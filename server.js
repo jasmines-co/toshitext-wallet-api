@@ -72,8 +72,6 @@ app.get('/addressDetails', (req, res) => {
 })
     
 app.get('/results', (req, res) => {
-//  res.send('It works!')
-   const query = req.query.search
    const url = 'https://api.blockcypher.com/v1/btc/main' 
     rp(url)
     .then(body => {
