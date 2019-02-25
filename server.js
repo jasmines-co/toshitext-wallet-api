@@ -2,7 +2,6 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const rp = require('request-promise')
-const querystring = require('querystring')
 const bitcoin = require('bitcoinjs-lib')
 tx = new bitcoin.Transaction()
 const port = 5000 || process.env.PORT
