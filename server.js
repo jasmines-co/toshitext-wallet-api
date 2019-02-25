@@ -3,11 +3,11 @@ const express = require('express')
 const app = express()
 const rp = require('request-promise')
 const bitcoin = require('bitcoinjs-lib')
-tx = new bitcoin.Transaction()
+const tx = new bitcoin.Transaction()
 const port = process.env.PORT || 5000
 
 app.get('/', (req, res) => {
-    res.send('Toshitext Wallet Managet NodeJS')
+    res.send('Toshitext Wallet Manager NodeJS')
 })
 
 app.post('/wallets', (req, res) => {
@@ -28,7 +28,7 @@ app.post('/wallets', (req, res) => {
             res.send(results)
         })
         .catch(err => {
-            console.log('Error -> ', err)
+            console.log('There was an error getting the wallets -> ', err)
         })
 })
 
@@ -44,7 +44,7 @@ app.post('/addressGeneration', (req, res) => {
         res.send(results)
     })
     .catch(err => {
-        console.log('Error -> ', err)
+        console.log('There was an error generating the wallet address -> ', err)
     })
 })
 
@@ -67,7 +67,7 @@ app.get('/addressDetails', (req, res) => {
         res.send(results)
     })
     .catch(err => {
-        console.log('Error -> ', err)
+        console.log('There was an error getting the address details -> ', err)
     })
 })
     
