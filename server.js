@@ -48,31 +48,29 @@ app.post('/addressGeneration', (req, res) => {
     })
 })
 
-    app.get('/addressDetails', (req, res) => {
-        const url = `https://api.blockcypher.com/v1/btc/main/wallets`
-        var options = {
-            uri: url,
-            qs: {
-                token: process.env.TOKEN // -> uri + '?access_token=xxxxx%20xxxxx'
-            },
-            headers: {
-                'User-Agent': 'Request-Promise'
-            },
-            json: true // Automatically parses the JSON string in the response
-        };
-        
-        rp(options)
-        .then(results => {
-            console.log(results)
-            res.send(results)
-        })
-        .catch(err => {
-            console.log('Error -> ', err)
-        })
+app.get('/addressDetails', (req, res) => {
+    const url = `https://api.blockcypher.com/v1/btc/main/wallets`
+    var options = {
+        uri: url,
+        qs: {
+            token: process.env.TOKEN // -> uri + '?access_token=xxxxx%20xxxxx'
+        },
+        headers: {
+            'User-Agent': 'Request-Promise'
+        },
+        json: true // Automatically parses the JSON string in the response
+    };
+    
+    rp(options)
+    .then(results => {
+        console.log(results)
+        res.send(results)
     })
+    .catch(err => {
+        console.log('Error -> ', err)
+    })
+})
     
-    
-
 app.get('/results', (req, res) => {
 //  res.send('It works!')
    const query = req.query.search
