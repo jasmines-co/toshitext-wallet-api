@@ -72,7 +72,7 @@ app.get('/balance', (req, res) => {
         res.send(results)
     })
     .catch(err => {
-        console.log('There was an error generating the wallet address -> ', err)
+        console.log('There was an error getting the address balance -> ', err)
     })
 })
 
