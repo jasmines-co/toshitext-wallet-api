@@ -11,8 +11,16 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse
 const port = process.env.PORT || 3000
 
 app.get('/', (req, res) => {
-    res.send('Toshitext Wallet Manager NodeJS')
-})
+    const url = 'https://api.blockcypher.com/v1/btc/main' 
+     rp(url)
+     .then(body => {
+         const data = JSON.parse(body)
+         res.json(data)
+     })
+     .catch(err => {
+         console.log('Error -> ', err)
+     })
+ })
 
 app.post('/wallets', (req, res) => {
         const url = `https://api.blockcypher.com/v1/btc/main/wallets?token=${process.env.TOKEN}`
@@ -95,19 +103,8 @@ app.post('/depositAddress', (req, res) => {
         console.log('There was an error getting the address details -> ', err)
     })
 })
-    
-app.get('/results', (req, res) => {
-   const url = 'https://api.blockcypher.com/v1/btc/main' 
-    rp(url)
-    .then(body => {
-        const data = JSON.parse(body)
-        res.json(data)
-    })
-    .catch(err => {
-        console.log('Error -> ', err)
-    })
-})
 
+// Twilio test
 app.post('/sms', (req, res) => {
     const twiml = new MessagingResponse()
 

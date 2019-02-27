@@ -1,2 +1,2 @@
-## Toshitext Wallet API powered by BloCypher
-https://toshitext-wallet-api.herokuapp.com/
+## Toshitext Wallet API powered by BlockCypher
+[BlockCypher.com](https://www.blockcypher.com/)
