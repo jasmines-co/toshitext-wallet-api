@@ -4,7 +4,7 @@ const app = express()
 const rp = require('request-promise')
 const bitcoin = require('bitcoinjs-lib')
 const tx = new bitcoin.Transaction()
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 3000
 
 app.get('/', (req, res) => {
     res.send('Toshitext Wallet Manager NodeJS')
@@ -48,8 +48,24 @@ app.post('/addressGeneration', (req, res) => {
     })
 })
 
-app.get('/addressDetails', (req, res) => {
-    const url = `https://api.blockcypher.com/v1/btc/main/wallets`
+app.get('/balance', (req, res) => {
+    const url = 'http://api.blockcypher.com/v1/btc/test3/addrs'
+    var options = {
+        method: 'POST',
+        uri: url
+    }
+    rp(options)
+    .then(results => {
+        console.log(results)
+        res.send(results)
+    })
+    .catch(err => {
+        console.log('There was an error generating the wallet address -> ', err)
+    })
+})
+
+app.get('/depositAddress', (req, res) => {
+    const url = `https://api.blockcypher.com/v1/btc/main/wallets/sukhrob/addresses`
     var options = {
         uri: url,
         qs: {
@@ -64,7 +80,7 @@ app.get('/addressDetails', (req, res) => {
     rp(options)
     .then(results => {
         console.log(results)
-        res.send(results)
+        res.send(results.addresses[0])
     })
     .catch(err => {
         console.log('There was an error getting the address details -> ', err)
