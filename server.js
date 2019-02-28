@@ -8,7 +8,7 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID
 const authToken = process.env.TWILIO_AUTH_TOKEN
 const client = require('twilio')(accountSid, authToken)
 const MessagingResponse = require('twilio').twiml.MessagingResponse
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 1337
 
 app.get('/', (req, res) => {
     const url = 'https://api.blockcypher.com/v1/btc/main' 
@@ -85,8 +85,7 @@ app.post('/depositAddress', (req, res) => {
             token: process.env.TOKEN // -> uri + '?access_token=xxxxx%20xxxxx'
         },
         headers: {
-            'User-Agent': 'Request-Promise',
-            'Content-Type': 'text/xml'
+            'User-Agent': 'Request-Promise'
         },
         json: true // Automatically parses the JSON string in the response
     };
@@ -97,6 +96,7 @@ app.post('/depositAddress', (req, res) => {
         // res.send(results.addresses[0])
         text = results.addresses[0]
         twiml.message(text)
+        res.writeHead(200, {'Content-Type': 'text/xml'})
         res.end(twiml.toString())
     })
     .catch(err => {
