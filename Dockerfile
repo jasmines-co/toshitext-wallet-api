@@ -1,10 +1,10 @@
 # Specify base image 
 FROM node:alpine
 
-WORKDIR /usr/app
+WORKDIR /app
 
 # Install dependencies
-COPY ./ ./
+COPY . .
 RUN npm install
 
 # Default command

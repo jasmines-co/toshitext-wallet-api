@@ -1,6 +1,11 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
+const redis = require('redis')
+const redisClient = redis.createClient({
+    host: 'redis-server',
+    port: 6379
+})
 const rp = require('request-promise')
 const bitcoin = require('bitcoinjs-lib')
 const tx = new bitcoin.Transaction()
@@ -8,7 +13,7 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID
 const authToken = process.env.TWILIO_AUTH_TOKEN
 const client = require('twilio')(accountSid, authToken)
 const MessagingResponse = require('twilio').twiml.MessagingResponse
-const port = process.env.PORT || 1337
+const port = process.env.PORT || 8080
 
 app.get('/', (req, res) => {
     const url = 'https://api.blockcypher.com/v1/btc/main' 

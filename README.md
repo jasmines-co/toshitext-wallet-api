@@ -3,11 +3,19 @@
 
 ## Docker Instructions
 
-### To build
-`docker build -t {REPLACE WITH DOCKER ID}/toshitext-wallet-api .`
+### The fastest way to launch all services
+``` $ docker-compose up ```
 
-### To run with port mapping
-`docker run -p 1337:1337 {REPLACE WITH DOCKER ID}/toshitext-wallet-api`
+### To launch in background
+```$ docker-compose up -d```
 
-### To shell into the container 
-`docker exec -it {REPLACE WITH CONTAINER ID} sh` 
+## To rebuild the image
+```$ docker-compose up --build```
+
+### To stop containers
+```$ docker-compose down```
+
+### To get a list of containers for docker-compose
+run ```$ docker-compose ps ``` from the same directory as docker-compose.yml 
+
+ 
