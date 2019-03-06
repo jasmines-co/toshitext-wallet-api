@@ -4,6 +4,9 @@ const app = express()
 const rp = require('request-promise')
 const bitcoin = require('bitcoinjs-lib')
 const tx = new bitcoin.Transaction()
+const bigi    = require("bigi");
+const buffer  = require('buffer');
+const keys    = new bitcoin.ECPair(bigi.fromHex(my_hex_private_key));
 const accountSid = process.env.TWILIO_ACCOUNT_SID 
 const authToken = process.env.TWILIO_AUTH_TOKEN
 const client = require('twilio')(accountSid, authToken)
@@ -126,17 +129,48 @@ app.post('/sendTransaction', (req, res) => {
             outputs: [{addresses: ['C7i1ZTScBv2MUr4V6qTmBMJDjeRVxGxphu'], value: 100000}]
         },
         json: true // Automatically parses the JSON string in the response
-    };
+    }
     
     rp(options)
-    .then(results => {
-        console.log(results)
-        // res.send(results.addresses[0])
-        console.log(results)
-        hash = results["tx"]["hash"]
-        twiml.message(hash)
-        res.writeHead(200, {'Content-Type': 'text/xml'})
-        res.end(twiml.toString())
+    .then(tempTx => {
+        console.log(temptx)
+        tmpTx.pubkeys = []
+        tmpTx.signatures = tmpTx.tosign.map((tosign, n) => {
+            tmpTx.pubkeys.push(keys.getPublicKeyBuffer().toString("hex"));
+            return keys.sign(new buffer.Buffer(tosign, "hex")).toDER().toString("hex");
+        })
+
+        rp('https://api.blockcypher.com/v1/bcy/test/txs/send')
+        .then(finalTx => {
+            console.log(finalTx)
+        })
+        .catch(err => {
+            console.log('There was an error sending the transaction -> ', err)
+        })
+
+        const sendTx = {
+            tx: {},
+            tosign: [
+                ""
+            ],
+            signatures: [
+                ""
+            ],
+            pubkeys: [
+                ""
+            ]
+        }
+
+        // TODO: add senTx transaction Object
+        rp('https://api.blockcypher.com/v1/bcy/test/txs/send')
+        .then(receipt => {
+            console.log(receipt)
+        })
+        .catch(err => {
+            console.log('There was an error with the signed transaction. -> ', err)
+        })
+
+
     })
     .catch(err => {
         console.log('There was an error sending the transaction -> ', err)
