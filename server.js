@@ -76,6 +76,7 @@ app.get('/balance', (req, res) => {
     })
 })
 
+// Get address balance
 app.get('/getBalance', (req, res) => {
     const twiml = new MessagingResponse()
     const url = `https://api.blockcypher.com/v1/btc/main/addrs/1J6VVu3b3NYT89na7XqCoCn5ryEUmNxWF5/balance`
@@ -102,6 +103,43 @@ app.get('/getBalance', (req, res) => {
     })
     .catch(err => {
         console.log('There was an error getting the address details -> ', err)
+    })
+})
+
+// Create a transaction
+app.post('/sendTransaction', (req, res) => {
+    const twiml = new MessagingResponse()
+    const url = `https://api.blockcypher.com/v1/bcy/test/txs/new`
+
+    // const newtx = {
+    //     inputs: [{addresses: ['C9J68jbN3HFRXusdrSdE7LaMvxwrK2SJXL']}],
+    //     outputs: [{addresses: ['C7i1ZTScBv2MUr4V6qTmBMJDjeRVxGxphu'], value: 100000}]
+    // }
+
+    var options = {
+        uri: url,
+        headers: {
+            'User-Agent': 'Request-Promise'
+        },
+        body: {
+            inputs: [{addresses: ['C9J68jbN3HFRXusdrSdE7LaMvxwrK2SJXL']}],
+            outputs: [{addresses: ['C7i1ZTScBv2MUr4V6qTmBMJDjeRVxGxphu'], value: 100000}]
+        },
+        json: true // Automatically parses the JSON string in the response
+    };
+    
+    rp(options)
+    .then(results => {
+        console.log(results)
+        // res.send(results.addresses[0])
+        console.log(results)
+        hash = results["tx"]["hash"]
+        twiml.message(hash)
+        res.writeHead(200, {'Content-Type': 'text/xml'})
+        res.end(twiml.toString())
+    })
+    .catch(err => {
+        console.log('There was an error sending the transaction -> ', err)
     })
 })
 
