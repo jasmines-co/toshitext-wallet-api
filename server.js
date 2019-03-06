@@ -78,7 +78,7 @@ app.get('/balance', (req, res) => {
 
 app.get('/getBalance', (req, res) => {
     const twiml = new MessagingResponse()
-    const url = `https://api.blockcypher.com/v1/btc/main/addrs/1CvfWYkUXZ2rr4VXQST4yVWVEh8s6EfmAU/balance`
+    const url = `https://api.blockcypher.com/v1/btc/main/addrs/1J6VVu3b3NYT89na7XqCoCn5ryEUmNxWF5/balance`
     var options = {
         uri: url,
         qs: {
@@ -94,7 +94,8 @@ app.get('/getBalance', (req, res) => {
     .then(results => {
         console.log(results)
         // res.send(results.addresses[0])
-        balance = results["balance"]
+        console.log(results)
+        balance = results["total_received"]
         twiml.message(balance)
         res.writeHead(200, {'Content-Type': 'text/xml'})
         res.end(twiml.toString())
