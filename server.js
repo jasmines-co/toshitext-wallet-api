@@ -78,7 +78,7 @@ app.get('/balance', (req, res) => {
 
 app.get('/getBalance', (req, res) => {
     const twiml = new MessagingResponse()
-    const url = `https://api.blockcypher.com/v1/btc/main/addrs/1KU3pVsK3TkQJugDpc5rV5ZnWQ4jXJoqef/balance`
+    const url = `https://api.blockcypher.com/v1/btc/main/addrs/1CvfWYkUXZ2rr4VXQST4yVWVEh8s6EfmAU/balance`
     var options = {
         uri: url,
         qs: {
