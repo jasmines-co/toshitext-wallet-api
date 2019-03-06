@@ -76,9 +76,9 @@ app.get('/balance', (req, res) => {
     })
 })
 
-app.post('/depositAddress', (req, res) => {
+app.get('/getBalance', (req, res) => {
     const twiml = new MessagingResponse()
-    const url = `https://api.blockcypher.com/v1/btc/main/wallets/sukhrob/addresses`
+    const url = `https://api.blockcypher.com/v1/btc/main/addrs/1KU3pVsK3TkQJugDpc5rV5ZnWQ4jXJoqef/balance`
     var options = {
         uri: url,
         qs: {
@@ -94,8 +94,8 @@ app.post('/depositAddress', (req, res) => {
     .then(results => {
         console.log(results)
         // res.send(results.addresses[0])
-        text = results.addresses[0]
-        twiml.message(text)
+        balance = results["balance"]
+        twiml.message(balance)
         res.writeHead(200, {'Content-Type': 'text/xml'})
         res.end(twiml.toString())
     })
