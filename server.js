@@ -1,11 +1,6 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
-const redis = require('redis')
-const redisClient = redis.createClient({
-    host: 'redis-server',
-    port: 6379
-})
 const rp = require('request-promise')
 const bitcoin = require('bitcoinjs-lib')
 const tx = new bitcoin.Transaction()
@@ -66,9 +61,9 @@ app.post('/addressGeneration', (req, res) => {
 })
 
 app.get('/balance', (req, res) => {
-    const url = 'http://api.blockcypher.com/v1/btc/test3/addrs'
+    const url = 'https://api.blockcypher.com/v1/btc/main/addrs/1KU3pVsK3TkQJugDpc5rV5ZnWQ4jXJoqef/balance'
     var options = {
-        method: 'POST',
+        method: 'GET',
         uri: url
     }
     rp(options)

@@ -15,7 +15,7 @@
 ### To stop containers
 ```$ docker-compose down```
 
-### To get a list of containers for docker-compose
+### To get a list of containers for docker-composex
 run ```$ docker-compose ps ``` from the same directory as docker-compose.yml 
 
  
